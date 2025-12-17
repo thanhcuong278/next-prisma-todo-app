@@ -47,16 +47,14 @@ yarn install
 Create a .env file in the root folder (you can copy .env.example) and set the following variables:
 
 DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/todo_db_prisma"
+
 NEXTAUTH_SECRET="super-secret-key"
+
 NEXTAUTH_URL="http://localhost:3000"
+
 GOOGLE_CLIENT_ID=your-google-client-id
+
 GOOGLE_CLIENT_SECRET=your-google-client-secret
-
-
-DATABASE_URL: PostgreSQL connection string
-NEXTAUTH_SECRET: Secret key for NextAuth session
-NEXTAUTH_URL: Local URL for NextAuth callbacks
-GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET: For Google OAuth login
 
 ## Database Setup
 This project uses Prisma and PostgreSQL.
@@ -68,6 +66,7 @@ CREATE DATABASE todo_db_prisma;
 
 ### Generate Prisma client & apply migrations:
 npx prisma migrate dev --name init
+
 npx prisma generate
 
 You can also inspect the database schema:
@@ -76,8 +75,7 @@ npx prisma studio
 ## Running Locally
 Run the Next.js dev server:
 npm run dev
-# or
-yarn dev
+
 Open http://localhost:3000
  to view the app.
 
