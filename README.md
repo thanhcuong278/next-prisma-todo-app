@@ -1,60 +1,101 @@
-# Todo App
+# Next Prisma Todo App
 
-A full-stack Todo application built with Next.js 13 App Router, TypeScript, NextAuth.js, and Prisma. Users can register, sign in with email/password or Google OAuth, create, edit, delete, and filter their todos.
+A modern Todo application built with **Next.js 13**, **Prisma**, **NextAuth.js**, and **PostgreSQL**.  
+Supports email/password authentication, Google OAuth, and CRUD operations for Todos with filtering and sorting.
+
+---
 
 ## Table of Contents
-Features
-Tech Stack
-Getting Started
-Environment Variables
-Database Setup
-Running Locally
-Project Structure
-Usage
-License
 
-## Features
-User authentication via Email/Password and Google OAuth
-Create, edit, delete todos
-Filter todos by status (TODO, DONE)
-Search todos by title/description
-Sort todos by deadline
-Responsive UI with Tailwind CSS
-Session management with NextAuth.js
-PostgreSQL database via Prisma ORM
+- [Demo](#demo)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Environment Variables](#environment-variables)
+  - [Database Migration](#database-migration)
+  - [Run Locally](#run-locally)
+- [Project Structure](#project-structure)
+- [Authentication](#authentication)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## Demo
+
+You can run this project locally and see a fully working Todo application with authentication.
+
+---
 
 ## Tech Stack
-Next.js 13 (App Router, React 18, TypeScript)
-NextAuth.js for authentication
-Prisma ORM for database access
-PostgreSQL as the database
-Tailwind CSS for styling
-bcryptjs for password hashing
+
+- **Next.js 13** – React framework for server/client rendering
+- **TypeScript** – Type safety
+- **Prisma** – ORM for PostgreSQL
+- **NextAuth.js** – Authentication (Email & Google OAuth)
+- **PostgreSQL** – Database
+- **Tailwind CSS** – Styling
+
+---
+
+## Features
+
+- Sign up / Sign in with email/password or Google OAuth
+- Create, edit, delete todos
+- Toggle todo status (TODO / DONE)
+- Search, filter, and sort todos
+- Secure routes using NextAuth.js sessions
+- Prisma ORM for database operations
+
+---
 
 ## Getting Started
-These instructions will help you run the project locally.
 
-### 1. Clone the repository
-git clone https://github.com/<your-username>/todo-app.git
-cd todo-app
+### Prerequisites
 
-### 2. Install dependencies
+- Node.js >= 18
+- npm or yarn
+- PostgreSQL database
+
+### Setup
+
+Clone the repository:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/next-prisma-todo-app.git
+cd next-prisma-todo-app
+
+Install dependencies:
+
+```bash
 npm install
 # or
 yarn install
 
-## Environment Variables
-Create a .env file in the root folder (you can copy .env.example) and set the following variables:
+### Environment Variables
+
+Create a .env file based on .env.example:
+
+```bash
+cp .env.example .env
+
+Fill in the following variables:
 
 DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/todo_db_prisma"
-
 NEXTAUTH_SECRET="super-secret-key"
-
 NEXTAUTH_URL="http://localhost:3000"
-
 GOOGLE_CLIENT_ID=your-google-client-id
 
 GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+
+DATABASE_URL: PostgreSQL connection string
+NEXTAUTH_SECRET: Secret key for NextAuth session
+NEXTAUTH_URL: Local URL for NextAuth callbacks
+GOOGLE_CLIENT_ID / GOOGLE_CLIENT_SECRET: For Google OAuth login
 
 ## Database Setup
 This project uses Prisma and PostgreSQL.
@@ -66,54 +107,59 @@ CREATE DATABASE todo_db_prisma;
 
 ### Generate Prisma client & apply migrations:
 npx prisma migrate dev --name init
-
 npx prisma generate
 
-You can also inspect the database schema:
+Check your database:
+
+```bash
 npx prisma studio
 
-## Running Locally
-Run the Next.js dev server:
-npm run dev
+### Run Locally
 
+Start the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
 Open http://localhost:3000
  to view the app.
 
-## Project Structure
-src/
-├─ app/
-│  ├─ page.tsx            # Home page with todo list
-│  ├─ signup/page.tsx     # Sign up page
-│  ├─ layout.tsx          # Root layout with AuthProvider
-│  └─ api/
-│     ├─ auth/[...nextauth]/route.ts # NextAuth API routes
-│     └─ todos/           # Todos CRUD API routes
-├─ components/
-│  ├─ AuthProvider.tsx    # Wraps SessionProvider
-│  ├─ TodoForm.tsx        # Todo creation form
-│  ├─ TodoItem.tsx        # Single todo item component
-│  ├─ TodoList.tsx        # List of todos
-│  └─ TodoFilter.tsx      # Search/filter UI
-├─ hooks/
-│  └─ useTodos.ts         # Custom hook for todos logic
-├─ lib/
-│  ├─ prisma.ts           # Prisma client
-│  └─ auth.ts             # Server session helper
-└─ types/
-   └─ next-auth.d.ts      # Custom NextAuth typings
+Project Structure
+next-prisma-todo-app/
+├─ prisma/                  # Prisma schema & migrations
+├─ src/
+│  ├─ app/                  # Next.js app routes
+│  │  ├─ api/               # API routes
+│  │  │  ├─ auth/           # NextAuth.js authentication
+│  │  │  └─ todos/          # Todo CRUD API
+│  │  ├─ page.tsx           # Home page
+│  │  └─ signup/page.tsx    # Signup page
+│  ├─ components/           # React components
+│  ├─ hooks/                # Custom hooks
+│  └─ lib/                  # Helper libraries (prisma, auth)
+├─ .env                     # Environment variables
+├─ package.json
+└─ tsconfig.json
 
-## Usage
-Visit Sign Up page (/signup) to create a new account.
-Sign in using email/password or Google OAuth.
-Create todos with a title, optional description, and optional deadline.
-Use search bar and status filter to find specific todos.
-Edit or delete todos directly from the list.
-Sign out to return to the login screen.
+### Authentication
 
-## Notes
-Passwords are securely hashed using bcryptjs.
-Todos are user-specific, secured by server-side session checks.
-Prisma ensures database-level ownership checks on each todo.
+Email/password authentication using NextAuth.js with Prisma adapter
 
-## License
+Google OAuth sign-in
+
+Protected routes based on session
+
+### Usage
+
+Sign up using email/password or Google
+
+Create new todos using the form
+
+Edit, delete, or toggle status of todos
+
+Filter, search, and sort todos with the filter panel
+
+### License
+
 This project is licensed under the MIT License.
